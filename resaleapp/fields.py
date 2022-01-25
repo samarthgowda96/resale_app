@@ -17,6 +17,7 @@ class UserClass(DjangoObjectType):
                 )
         books = Book.object.filter(id__in=book_user)
         return books
+        
 class BookUserClass(DjangoObjectType):
     class Meta:
          model = BookUser
