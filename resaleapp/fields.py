@@ -1,15 +1,16 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
-from models import User, Book, Comment, BookUser, CommentUser
+from .models import User, Book, Comment, BookUser, CommentUser
 
 class BookClass(DjangoObjectType):
     class Meta:
-    model = Book
+        model = Book
+
 class UserClass(DjangoObjectType):
     book = graphene.List(BookClass)
     class Meta:
-    model = User
+        model = User
     def resolve_book(self, info, root):
         book_user = \
                   BookUser.objects.filter(user_id=self.id).values_list('book_id'
@@ -18,10 +19,10 @@ class UserClass(DjangoObjectType):
         return books
 class BookUserClass(DjangoObjectType):
     class Meta:
-    model = BookUser
+         model = BookUser
 class CommentClass(DjangoObjectType):
     class Meta:
-    model = Comment
+        model = Comment
 class CommentUserClass(DjangoObjectType):
     class Meta:
-    model = CommentUser
+        model = CommentUser
